@@ -62,7 +62,11 @@ const NO_PHRASES = [
 ]
 
 const BEAR_IMAGES = [
-  "https://media.tenor.com/VIChDQ6ejRQAAAAj/jumping-bear-hearts-no-png.gif"
+  "https://media.tenor.com/VIChDQ6ejRQAAAAj/jumping-bear-hearts-no-png.gif",
+  "https://media.tenor.com/4Hjm_J72ZEcAAAAj/milk-mocha-bear-cheek-pull.gif",
+  "https://media.tenor.com/kX-3mhPxc3MAAAAi/milk-and-mocha.gif",
+  "https://media.tenor.com/53nKdhGBdMAAAAAi/bubududu-sseeyall.gif",
+  "https://media.tenor.com/TLPLeyipKPgAAAAi/bear.gif"
 ]
 
 const FINAL_IMAGE =
