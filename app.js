@@ -81,7 +81,7 @@ function App() {
   const bearIndex = Math.min(Math.floor(noClicks / 5), BEAR_IMAGES.length - 1)
   const bearImg = BEAR_IMAGES[bearIndex]
 
-  const evilLevel = Math.min(noClicks, 25)
+  const evilLevel = Math.min(noClicks, 20)
 
   const bearStyle = {
     width: "220px",
@@ -151,7 +151,14 @@ function App() {
     return e(
       "div",
       { style: containerStyle },
-      e("img", { src: bearImg, alt: "bear", style: bearStyle }),
+      e("img", {
+        src: bearImg,
+        alt: "bear",
+        style: bearStyle,
+        referrerPolicy: "no-referrer",
+        crossOrigin: "anonymous",
+        onError: () => console.log("Image failed:", bearImg)
+      }),
       e("h1", null, "Will you be my Valentine? 💘"),
       e(
         "div",
@@ -173,7 +180,12 @@ function App() {
   return e(
     "div",
     { style: containerStyle },
-    e("img", { src: FINAL_IMAGE, alt: "love" }),
+    e("img", {
+      src: FINAL_IMAGE,
+      alt: "love",
+      referrerPolicy: "no-referrer",
+      crossOrigin: "anonymous"
+    }),
     e(
       "div",
       { style: { fontSize: "48px", color: "pink", fontWeight: "bold" } },
