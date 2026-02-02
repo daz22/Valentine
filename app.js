@@ -61,39 +61,49 @@ const NO_PHRASES = [
   "Okay last no. I mean it. Maybe."
 ]
 
+const BEAR_IMAGES = [
+  "https://media.tenor.com/VIChDQ6ejRQAAAAj/jumping-bear-hearts-no-png.gif",
+  "https://media.tenor.com/2roX3uxz_68AAAAj/bear-angry.gif",
+  "https://media.tenor.com/2nK3KcF7mYIAAAAj/angry-bear-cute.gif",
+  "https://media.tenor.com/3K9RZ2rX5Y0AAAAj/evil-bear-cute.gif",
+  "https://media.tenor.com/8Yk6cE6Z7WkAAAAj/possessed-bear.gif"
+]
+
+const FINAL_IMAGE =
+  "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif"
+
 const e = React.createElement
 
 function App() {
   const [noClicks, setNoClicks] = useState(0)
   const [isValentine, setIsValentine] = useState(false)
 
-  const firstImg =
-    "https://media.tenor.com/VIChDQ6ejRQAAAAj/jumping-bear-hearts-no-png.gif"
-  const secondImg =
-    "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif"
+  const bearIndex = Math.min(Math.floor(noClicks / 5), BEAR_IMAGES.length - 1)
+  const bearImg = BEAR_IMAGES[bearIndex]
 
-  const evilLevel = Math.min(noClicks, 20)
-
-  const bearFilter =
-    "hue-rotate(" + evilLevel * 10 + "deg) " +
-    "saturate(" + (1 + evilLevel * 0.18) + ") " +
-    "contrast(" + (1 + evilLevel * 0.14) + ") " +
-    "brightness(" + (1 - evilLevel * 0.03) + ")"
-
-  const bearGlow =
-    "0 0 " +
-    evilLevel * 2 +
-    "px rgba(255, 0, 0, " +
-    Math.min(0.15 + evilLevel * 0.03, 0.75) +
-    ")"
+  const evilLevel = Math.min(noClicks, 25)
 
   const bearStyle = {
     width: "220px",
     maxWidth: "70vw",
-    filter: bearFilter,
-    boxShadow: bearGlow,
+    filter:
+      "hue-rotate(" +
+      evilLevel * 10 +
+      "deg) saturate(" +
+      (1 + evilLevel * 0.2) +
+      ") contrast(" +
+      (1 + evilLevel * 0.15) +
+      ") brightness(" +
+      (1 - evilLevel * 0.03) +
+      ")",
+    boxShadow:
+      "0 0 " +
+      evilLevel * 2 +
+      "px rgba(255,0,0," +
+      Math.min(0.15 + evilLevel * 0.03, 0.8) +
+      ")",
     borderRadius: "16px",
-    transform: "scale(" + (1 + evilLevel * 0.015) + ")",
+    transform: "scale(" + (1 + evilLevel * 0.02) + ")",
     animation:
       noClicks >= 3
         ? "evilPulse 0.9s infinite, evilShake 0.12s infinite"
@@ -141,7 +151,7 @@ function App() {
     return e(
       "div",
       { style: containerStyle },
-      e("img", { src: firstImg, alt: "bear", style: bearStyle }),
+      e("img", { src: bearImg, alt: "bear", style: bearStyle }),
       e("h1", null, "Will you be my Valentine? 💘"),
       e(
         "div",
@@ -163,7 +173,7 @@ function App() {
   return e(
     "div",
     { style: containerStyle },
-    e("img", { src: secondImg, alt: "love" }),
+    e("img", { src: FINAL_IMAGE, alt: "love" }),
     e(
       "div",
       { style: { fontSize: "48px", color: "pink", fontWeight: "bold" } },
