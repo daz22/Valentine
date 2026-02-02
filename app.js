@@ -1,5 +1,5 @@
-import React, { useState } from "https://esm.sh/react@18.2.0";
-import { createRoot } from "https://esm.sh/react-dom@18.2.0/client";
+import React, { useState } from "https://esm.sh/react@18.2.0"
+import { createRoot } from "https://esm.sh/react-dom@18.2.0/client"
 
 const NO_PHRASES = [
   "No 💔",
@@ -59,20 +59,48 @@ const NO_PHRASES = [
   "I respect consent but wow.",
   "Just do it. Lovingly.",
   "Okay last no. I mean it. Maybe."
-];
+]
 
-const e = React.createElement;
+const e = React.createElement
 
 function App() {
-  const [noClicks, setNoClicks] = useState(0);
-  const [isValentine, setIsValentine] = useState(false);
-
-  const yesButtonSize = noClicks * 20 + 16;
+  const [noClicks, setNoClicks] = useState(0)
+  const [isValentine, setIsValentine] = useState(false)
 
   const firstImg =
-    "https://media.tenor.com/VIChDQ6ejRQAAAAj/jumping-bear-hearts-no-png.gif";
+    "https://media.tenor.com/VIChDQ6ejRQAAAAj/jumping-bear-hearts-no-png.gif"
   const secondImg =
-    "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif";
+    "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif"
+
+  const evilLevel = Math.min(noClicks, 20)
+
+  const bearFilter =
+    "hue-rotate(" + evilLevel * 10 + "deg) " +
+    "saturate(" + (1 + evilLevel * 0.18) + ") " +
+    "contrast(" + (1 + evilLevel * 0.14) + ") " +
+    "brightness(" + (1 - evilLevel * 0.03) + ")"
+
+  const bearGlow =
+    "0 0 " +
+    evilLevel * 2 +
+    "px rgba(255, 0, 0, " +
+    Math.min(0.15 + evilLevel * 0.03, 0.75) +
+    ")"
+
+  const bearStyle = {
+    width: "220px",
+    maxWidth: "70vw",
+    filter: bearFilter,
+    boxShadow: bearGlow,
+    borderRadius: "16px",
+    transform: "scale(" + (1 + evilLevel * 0.015) + ")",
+    animation:
+      noClicks >= 3
+        ? "evilPulse 0.9s infinite, evilShake 0.12s infinite"
+        : noClicks >= 1
+        ? "evilPulse 1.3s infinite"
+        : "none"
+  }
 
   const containerStyle = {
     display: "flex",
@@ -82,19 +110,17 @@ function App() {
     height: "100vh",
     fontFamily: "Arial, sans-serif",
     textAlign: "center"
-  };
-
-  const buttonRowStyle = { display: "flex", gap: "10px", alignItems: "center" };
+  }
 
   const yesStyle = {
-    fontSize: `${yesButtonSize}px`,
+    fontSize: noClicks * 20 + 16 + "px",
     padding: "10px 20px",
     backgroundColor: "green",
     color: "white",
     border: "none",
     borderRadius: "5px",
     cursor: "pointer"
-  };
+  }
 
   const noStyle = {
     fontSize: "16px",
@@ -104,44 +130,46 @@ function App() {
     border: "none",
     borderRadius: "5px",
     cursor: "pointer"
-  };
-
-  const titleStyle = { fontSize: "48px", color: "pink", fontWeight: "bold" };
+  }
 
   if (!isValentine) {
-    const noLabel =
+    const noText =
       noClicks === 0
         ? "No"
-        : NO_PHRASES[Math.min(noClicks - 1, NO_PHRASES.length - 1)];
+        : NO_PHRASES[Math.min(noClicks - 1, NO_PHRASES.length - 1)]
 
     return e(
       "div",
       { style: containerStyle },
-      e("img", { src: firstImg, alt: "bear" }),
+      e("img", { src: firstImg, alt: "bear", style: bearStyle }),
       e("h1", null, "Will you be my Valentine? 💘"),
       e(
         "div",
-        { style: buttonRowStyle },
+        null,
         e(
           "button",
-          { onClick: () => setIsValentine(true), style: yesStyle },
+          { style: yesStyle, onClick: () => setIsValentine(true) },
           "Yes"
         ),
         e(
           "button",
-          { onClick: () => setNoClicks((p) => p + 1), style: noStyle },
-          noLabel
+          { style: noStyle, onClick: () => setNoClicks(noClicks + 1) },
+          noText
         )
       )
-    );
+    )
   }
 
   return e(
     "div",
     { style: containerStyle },
-    e("img", { src: secondImg, alt: "kisses" }),
-    e("div", { style: titleStyle }, "Yay!!! 💖🎉")
-  );
+    e("img", { src: secondImg, alt: "love" }),
+    e(
+      "div",
+      { style: { fontSize: "48px", color: "pink", fontWeight: "bold" } },
+      "Yay!!! 💖🎉"
+    )
+  )
 }
 
-createRoot(document.getElementById("root")).render(e(App));
+createRoot(document.getElementById("root")).render(e(App))
